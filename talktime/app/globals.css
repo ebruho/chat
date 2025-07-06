@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -181,6 +183,10 @@
   --sidebar-ring: oklch(0.488 0.243 264.376);
 }
 
+html,body{
+  height: 100%;
+  overflow: hidden;
+}
 
 @layer base {
   * {
