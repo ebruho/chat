@@ -14,3 +14,20 @@ export const create = internalMutation({
         await ctx.db.insert("users", args);
     },
 });
+
+// export const getByClerkId = internalQuery({
+//     args: { clerkId: v.string() },
+//     async handler(ctx, args) {
+//         return ctx.db.query("users").withIndex("byClerkId").filter((q) => q.eq(q.field("clerkId"), args.clerkId)).unique();
+//     }
+// });    
+
+export const getByClerkId = internalQuery({
+    args: { clerkId: v.string() },
+    async handler(ctx, args) {
+        return ctx.db
+        .query("users")
+        .withIndex("byClerkId",(q) => q.eq("clerkId", args.clerkId))
+        .unique();
+    }
+});    

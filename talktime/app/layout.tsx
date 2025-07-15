@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
+import { Tooltip, TooltipProvider } from "@radix-ui/react-tooltip";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +34,9 @@ export default function RootLayout({
             The ConvexClientProvider wraps the children components, allowing them to access the Convex client.
             This is where you would typically initialize your Convex client and pass it down to your components.
           */}
-          {children}
+          <TooltipProvider>
+            {children}
+          </TooltipProvider>
         </ConvexClientProvider>
 
 
