@@ -4,9 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigation } from "@/hooks/useNavigation";
 import { UserButton } from "@clerk/nextjs";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
+// import { Tooltip, TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 // import { Link, User } from "lucide-react";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/ui/theme/theme-toggle";
+
 
 
 const DesktopNav = () => {
@@ -41,6 +44,7 @@ const DesktopNav = () => {
         </ul>
     </nav>
     <div className="flex flex-col items-center gap-4">
+        <ThemeToggle />
         <UserButton />
     </div>
     </Card>
