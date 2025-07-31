@@ -11,12 +11,13 @@ import Link from "next/link";
 import { use } from "react";
 import { useConversation } from "@/hooks/useConversation";
 import { ThemeToggle } from "@/components/ui/theme/theme-toggle";
+import { Badge } from "@/components/ui/badge";
 
 
 const MobileNav = () => {
     const paths = useNavigation();
 
-    const {isActive} = useConversation();
+    const { isActive } = useConversation();
 
     if (isActive) {
         return null;
@@ -36,6 +37,10 @@ const MobileNav = () => {
                                             {path.icon}
                                         </Button>
                                     </TooltipTrigger>
+                                    {path.count ?
+                                        <Badge className="absolute left-6 bottom-7 px-2">
+                                            {path.count}
+                                        </Badge> : null}
                                     <TooltipContent>
                                         <p>{path.name}</p>
                                     </TooltipContent>

@@ -14,15 +14,21 @@ import { Button } from "@/components/ui/button";
 import { TooltipContent } from "@/components/ui/tooltip";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useMutationState } from "@/hooks/useMutationState";
+import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
+import { ConvexError } from "convex/values";
 
-type Props = {}
+// type Props = {}
 
 const addFrientFromSchema = z.object({
     email: z.string().min(1, { message: "Email is required" })
         .email("Please enter a valid email"),
 });
 
-const AddFriendDialog = (props: Props) => {
+const AddFriendDialog = () => {
+
+    const {mutate: createRequest, pending} = useMutationState(api.request.create);
 
     const form = useForm<z.infer<typeof addFrientFromSchema>>({
         resolver: zodResolver(addFrientFromSchema),
@@ -31,8 +37,13 @@ const AddFriendDialog = (props: Props) => {
         },
     });
 
-    const handleSubmit = async () => {
-
+    const handleSubmit = async (values: z.infer<typeof addFrientFromSchema>) => {
+        await createRequest({email: values.email}).then(() => {
+            form.reset();
+            toast.success("Friend request sent successfully!");
+        }).catch((error) => {
+            toast.error(error instanceof ConvexError ? error.data : "An error occurred while sending the friend request");
+        })
     };
 
     return (
@@ -72,7 +83,7 @@ const AddFriendDialog = (props: Props) => {
                         )}
                         />
                         <DialogFooter>
-                            <Button disabled={false} type="submit" variant="default">
+                            <Button disabled={pending} type="submit" variant="default">
                                 Send Request
                             </Button>
                         </DialogFooter>
