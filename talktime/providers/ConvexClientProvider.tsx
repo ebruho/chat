@@ -3,12 +3,11 @@ import LoadingLogo from "@/components/shared/loadingLogo";
 // This file is part of the TalkTime app, which is a chat application built using Next
 import { useAuth } from "@clerk/clerk-react";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Authenticated, AuthLoading, ConvexReactClient } from "convex/react";
+import { Authenticated, AuthLoading, ConvexReactClient, Unauthenticated } from "convex/react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
-import React, { use } from "react";
+import React from "react";
 
 type Props = {
-
     children: React.ReactNode;
 };
 
@@ -22,15 +21,15 @@ const ConvexClientProvider = ({ children }: Props) => {
 
     return (
         <ClerkProvider>
-
             <ConvexProviderWithClerk useAuth={useAuth} client={convex}>
-
                 <Authenticated>{children}</Authenticated>
                 <AuthLoading>
                     <LoadingLogo />
                 </AuthLoading>
+                <Unauthenticated>
+                    <div>Please sign in to continue</div>
+                </Unauthenticated>
             </ConvexProviderWithClerk>
-
         </ClerkProvider>
     );
 }
