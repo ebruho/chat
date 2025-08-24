@@ -16,15 +16,14 @@ type Props = {
     setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const RemoveFriendDialog = ({conversationId, open, setOpen} : Props) => {
-    const {mutate: removeFriend, pending } = useMutationState(api.friend.remove);
+const LeaveGroupDialog = ({conversationId, open, setOpen} : Props) => {
+    const {mutate: leaveGroup, pending } = useMutationState(api.conversation.leaveGroup);
 
-    const handleRemoveFriend = async() => {
-        removeFriend({conversationId}).then(() => {
-            toast.success("The friend successfully removed");
+    const handleLeaveGroup = async() => {
+        leaveGroup({conversationId}).then(() => {
+            toast.success("You successfully left the group");
             setOpen(false); // Close dialog on success
         }).catch((error) => {
-            console.error("Remove friend error:", error);
             toast.error(
                 error instanceof ConvexError ?
                 error.data
@@ -41,7 +40,7 @@ const RemoveFriendDialog = ({conversationId, open, setOpen} : Props) => {
                         <div className="p-2 rounded-full bg-destructive/10 text-destructive">
                             <UserMinus className="w-6 h-6" />
                         </div>
-                        <AlertDialogTitle>Remove Friend</AlertDialogTitle>
+                        <AlertDialogTitle>Leave Group</AlertDialogTitle>
                     </div>
                     <AlertDialogDescription className="text-left">
                         <div className="flex items-start gap-2">
@@ -49,7 +48,7 @@ const RemoveFriendDialog = ({conversationId, open, setOpen} : Props) => {
                             <div>
                                 <p className="font-semibold text-foreground mb-2">This action cannot be undone.</p>
                                 <p className="text-sm text-foreground/80 leading-relaxed">
-                                    All messages will be permanently deleted and you will not be able to message this user again. 
+                                    You will no longer be able to send or receive messages in this group. 
                                     Your other conversations and group chats will remain unaffected.
                                 </p>
                             </div>
@@ -62,10 +61,10 @@ const RemoveFriendDialog = ({conversationId, open, setOpen} : Props) => {
                     </AlertDialogCancel>
                     <AlertDialogAction 
                         disabled={pending} 
-                        onClick={handleRemoveFriend}
+                        onClick={handleLeaveGroup}
                         className="bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-xl p-3"
                     >
-                        {pending ? "Removing..." : "Remove Friend"}
+                        {pending ? "Leaving..." : "Leave Group"}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
@@ -73,4 +72,4 @@ const RemoveFriendDialog = ({conversationId, open, setOpen} : Props) => {
     )
 }
 
-export default RemoveFriendDialog;
+export default LeaveGroupDialog;

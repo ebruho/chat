@@ -5,8 +5,6 @@ import { getUserByClerkId } from "./_utils";
 export const remove = mutation({
     args: {
         conversationId: v.id("conversations"),
-        type: v.string(),
-        content: v.array(v.string()),
     },
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
@@ -33,8 +31,14 @@ export const remove = mutation({
             .withIndex("by_conversationId", q => q.eq("conversationId", args.conversationId))
             .collect();
 
-        if (!memberships || memberships.length !== 2) {
+        if (!memberships || memberships.length <= 1) {
             throw new ConvexError("This conversation does not have any members");
+        }
+
+        // Check if current user is a member of this conversation
+        const isMember = memberships.some(membership => membership.memberId === currentUser._id);
+        if (!isMember) {
+            throw new ConvexError("You are not a member of this conversation");
         }
 
         const friendship = await ctx.db.query("friends")
@@ -61,3 +65,4 @@ export const remove = mutation({
 
     },
 })
+

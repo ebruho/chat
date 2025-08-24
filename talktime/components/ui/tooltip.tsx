@@ -36,7 +36,7 @@ function TooltipTrigger({
 
 function TooltipContent({
   className,
-  sideOffset = 8, // slight offset for better visibility
+  sideOffset = 8,
   children,
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Content>) {
@@ -46,14 +46,13 @@ function TooltipContent({
         data-slot="tooltip-content"
         sideOffset={sideOffset}
         className={cn(
-          // Improved styles for a modern, pleasant tooltip
-          "bg-neutral-900 text-white shadow-lg animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-max origin-[var(--radix-tooltip-content-transform-origin)] rounded-lg px-4 py-2 text-sm font-medium border border-neutral-700",
+          "bg-popover/95 backdrop-blur-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-max origin-[var(--radix-tooltip-content-transform-origin)] rounded-xl px-4 py-3 text-sm font-medium border shadow-2xl",
           className
         )}
         {...props}
       >
         {children}
-        <TooltipPrimitive.Arrow className="bg-neutral-900 fill-neutral-900 drop-shadow-lg z-50 size-3 -translate-y-1 rotate-45 rounded-sm border border-neutral-700" />
+        <TooltipPrimitive.Arrow className="fill-popover drop-shadow-lg z-50 size-3 -translate-y-1 rotate-45 rounded-sm" />
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   )
