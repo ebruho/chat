@@ -64,7 +64,9 @@ const ConversationPage = ({ params: { conversationId } }: Props) => {
                 onClick: () => setRemoveFriendDialogOpen(true),
               },
             ]} />
-          <Body />
+          <Body members={conversation.isGroup ? 
+            conversation.otherMembers ? conversation.otherMembers : [] // should not happen, but just in case 
+            : conversation.otherMember ? [conversation.otherMember] : [] } />  {/* for one-on-one, members array contains only the other member */}
           <ChatInput />
         </ConversationContainer>
   );

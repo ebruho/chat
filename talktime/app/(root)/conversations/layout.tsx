@@ -26,13 +26,15 @@ const ConversationsLayout = ({ children }: Props) => {
             <GroupConversationItem key={conversations.conversations._id}
             id={conversations.conversations._id} name={conversations.conversations.name || ""}
             lastMessageContent={conversations.lastMessage?.content} 
-            lastMessageSender={conversations.lastMessage?.sender} />
+            lastMessageSender={conversations.lastMessage?.sender} 
+            unseenCount={conversations.unseenCount} />
           : (
             <DMConversationItem key={conversations.conversations._id}
             id={conversations.conversations._id} username={conversations.otherMember?.username || ""}
             imageUrl={conversations.otherMember?.imageUrl || ""}
             lastMessageContent={conversations.lastMessage?.content} 
-            lastMessageSender={conversations.lastMessage?.sender} />
+            lastMessageSender={conversations.lastMessage?.sender}
+            unseenCount={conversations.unseenCount} />
           )
         }) : <Loader2 />
       }
