@@ -34,3 +34,5 @@ const ConvexClientProvider = ({ children }: Props) => {
     );
 }
 export default ConvexClientProvider;
+
+// convex and clerk setup

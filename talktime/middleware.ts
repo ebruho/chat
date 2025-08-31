@@ -17,3 +17,6 @@ export const config = {
     '/(api|trpc)(.*)',
   ],
 }
+
+// the middleware will not run on static files
+// so we don't need to exclude them here
